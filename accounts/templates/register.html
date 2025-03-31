@@ -13,6 +13,19 @@
             Já tem uma conta?
             <a href="{% url 'login' %}" class="font-semibold text-indigo-300 hover:text-indigo-200">Faça login</a>
           </p>
+          {% if messages %}
+                {% for message in messages %}
+                    <div class="rounded-md {{message.tags}} mt-4">
+                        <div class="flex">
+                            <div class="ml-3 py-4">
+                                {{message}}
+
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
 
         </div>
   
