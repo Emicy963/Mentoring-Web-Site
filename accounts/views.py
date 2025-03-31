@@ -39,3 +39,19 @@ def register_view(request):
         except Exception as err:
             messages.error(request, f'Erro ao criar usuário: {str(err)}')
             return redirect('register')
+    
+def login_view(request):
+    if request.method=='GET':
+        return render(request, 'login.html')
+    elif request.method=='POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user:
+            login(request, user)
+            return redirect('home')
+
+        messages.error(request, 'Username ou senha errada!')
+        return redirect('login')
