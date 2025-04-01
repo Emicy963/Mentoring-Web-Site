@@ -16,7 +16,7 @@ class Mentees(models.Model):
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     stage = models.CharField(max_length=2, choices=choice_stage)
-    navigator = models.ForeignKey(User, on_delete=models.CASCADE)
+    navigator = models.ForeignKey(Navigators, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     create_at = models.DateField(auto_now_add=True)
 
