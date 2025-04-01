@@ -66,8 +66,7 @@
                         </div>
                     </div>
                     <div>
-                        <label for="
-                        stage" class="block text-sm/6 font-medium text-gray-200">Estágio</label>
+                        <label for="stage" class="block text-sm/6 font-medium text-gray-200">Estágio</label>
                         <div class="mt-2">
                             <select name="stage" id="stage" class="block w-full rounded-md bg-white/5 px-3 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6">
          
@@ -83,9 +82,9 @@
                 </div>
 
                 <div class="mt-4">
-                        <label class="block text-sm/6 font-medium text-gray-200">Navigator</label>
+                        <label for="mentees" class="block text-sm/6 font-medium text-gray-200">Navigator</label>
                         <div class="mt-2">
-                            <select name="navigator" id="" class="block w-full rounded-md bg-white/5 px-3 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6">
+                            <select name="navigator" id="mentees" class="block w-full rounded-md bg-white/5 px-3 py-2 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6">
 
                                 {% for navigator in navigators %}
                                     <option value="{{navigator.id}}">{{navigator.name}}</option>
@@ -130,32 +129,35 @@
               <tbody class="divide-y divide-white/5">
                 
                
-                  <tr>
-                    <td class="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
-                      <div class="flex items-center gap-x-4">
-                        <img src="#" alt="" class="size-8 rounded-full bg-gray-800">
-                        <div class="truncate text-sm/6 font-medium text-white">Caio Sampaio</div>
+                {% for mentee in mentees %}
+                <tr>
+                  <td class="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
+                    <div class="flex items-center gap-x-4">
+                      <img src="{{mentee.photo.url}}" alt="" class="size-8 rounded-full bg-gray-800">
+                      <div class="truncate text-sm/6 font-medium text-white">{{mentee.name}}</div>
+                    </div>
+                  </td>
+                  <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                    <div class="flex gap-x-3">
+                      <div class="rounded-md bg-gray-700/40 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-white/10">{{mentee.stage}}</div>
+                    </div>
+                  </td>
+                  <td class="py-4 pl-0 pr-4 text-sm/6 sm:pr-8 lg:pr-20">
+                    <div class="flex items-center justify-end gap-x-2 sm:justify-start">
+                      <div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
+                        <div class="size-1.5 rounded-full bg-current"></div>
                       </div>
-                    </td>
-                    <td class="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
-                      <div class="flex gap-x-3">
-                        <div class="rounded-md bg-gray-700/40 px-2 py-1 text-xs font-medium text-gray-400 ring-1 ring-inset ring-white/10">10-100k</div>
-                      </div>
-                    </td>
-                    <td class="py-4 pl-0 pr-4 text-sm/6 sm:pr-8 lg:pr-20">
-                      <div class="flex items-center justify-end gap-x-2 sm:justify-start">
-                        <div class="flex-none rounded-full bg-green-400/10 p-1 text-green-400">
-                          <div class="size-1.5 rounded-full bg-current"></div>
-                        </div>
-                        <div class="hidden text-white sm:block">Ativo</div>
-                      </div>
-                    </td>
-                    <td class="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-400 md:table-cell lg:pr-20">26/03/2025</td>
-                    <td class="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-400 md:table-cell lg:pr-20">
-                     
-                        Caio Sampaio
-                    </td>
-                  </tr>
+                      <div class="hidden text-white sm:block">Ativo</div>
+                    </div>
+                  </td>
+                  <td class="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-400 md:table-cell lg:pr-20">{{mentee.create_at}}</td>
+                  <td class="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-400 md:table-cell lg:pr-20">
+                   
+                    {{mentee.navigator.name}}
+                    
+                  </td>
+                </tr>
+                {% endfor %}
                 
               </tbody>
             </table>
