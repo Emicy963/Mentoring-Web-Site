@@ -7,7 +7,14 @@ def mentees_views(request):
     if request.method=='GET':
         navigators = Navigators.objects.filter(user=request.user)
         mentees = Mentees.objects.filter(user=request.user)
-        return render(request, 'mentees.html', {'stages': Mentees.choice_stage, 'navigators': navigators, 'mentees': mentees})
+
+        stages_flat = [i[1] for i in Mentees.choice_stage]
+        qtd_stages = []
+
+        for i, j in Mentees.choice_stage:
+            qtd_stages.append(Mentees.objects.filter(stage=i).count())
+
+        return render(request, 'mentees.html', {'stages': Mentees.choice_stage, 'navigators': navigators, 'mentees': mentees, 'stages_flat': stages_flat, 'qtd_stages': qtd_stages})
     elif request.method=='POST':
         name = request.POST.get('name')
         photo = request.POST.get('photo')
