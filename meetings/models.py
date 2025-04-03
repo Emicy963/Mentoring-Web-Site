@@ -8,7 +8,8 @@ class ScheduleAvailability(models.Model):
     mentor = models.ForeignKey(User, on_delete=models.CASCADE)
     scheduled = models.BooleanField(default=False)
 
-    def __str__(self):
+    @property
+    def final_date(self):
         return self.start_date + timedelta(minutes=50)
     
 class Meetings(models.Model):
