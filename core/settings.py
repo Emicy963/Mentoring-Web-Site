@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'mentees.apps.MenteesConfig',
+    'meentings.apps.MeentingsConfig',
 ]
 
 MIDDLEWARE = [
