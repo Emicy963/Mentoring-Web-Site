@@ -40,4 +40,14 @@ def mentees_views(request):
 def auth(request):
     if request.method=='GET':
         return render(request, 'auth_mentees.html')
+    else:
+        token = request.POST.get('token')
+
+        if not Mentees.objects.filter(token=token).exists():
+            messages.add_message(request, constants.ERROR, 'Token inválido')
+            return redirect('auth_mentees')
+        
+        response = redirect('choose_day')
+        response.set_cookie('auth_token', token, max_age=3600)
+        return response
     
