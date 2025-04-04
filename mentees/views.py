@@ -36,3 +36,8 @@ def mentees_views(request):
         except Exception as err:
             messages.add_message(request, constants.ERROR, f'Erro ao cadastrar mentorado: {str(err)}')
             return redirect('mentees')
+        
+def auth(request):
+    if request.method=='GET':
+        return render(request, 'auth_mentees.html')
+    
