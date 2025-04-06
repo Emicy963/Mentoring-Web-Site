@@ -44,3 +44,16 @@ def choose_day(request):
             opening_hours.append(i.date().strftime('%d-%m-%Y'))
 
         return render(request, 'choose_day.html', {'opening_hours': list(set(opening_hours))})
+    
+def schedule_meeting(request):
+    if not validate_token(request.COOKIES.get('auth_token')):
+        return redirect('auth_mentees')
+    if request.method=='GET':
+        date = request.GET.get('date')
+        date = datetime.strptime(date, '%d-%m-%Y')
+        opening_hours = ScheduleAvailability.objects.filter(
+            start_date__gte=date,
+            start_date__lt=date + timedelta(days=1),
+            scheduled=False
+        )
+        return render(request, 'schedule_meeting.html', {'opening_hours': opening_hours, 'tags': Meetings.tag_choice})
