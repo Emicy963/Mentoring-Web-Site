@@ -23,4 +23,4 @@ class Meetings(models.Model):
     date = models.ForeignKey(ScheduleAvailability, on_delete=models.CASCADE)
     mentees = models.ForeignKey(Mentees, on_delete=models.CASCADE)
     tag = models.CharField(max_length=2, choices=tag_choice)
-    descripton = models.TextField()
+    description = models.TextField()
