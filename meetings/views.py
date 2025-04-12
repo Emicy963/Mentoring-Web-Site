@@ -7,7 +7,8 @@ from mentees.auth import validate_token
 
 def meeting_view(request):
     if request.method=='GET':
-        return render(request, 'meentings.html')
+        meentings = Meetings.objects.filter(mentees=request.user)
+        return render(request, 'meentings.html', {'meentings': meentings})
     else:
         date = request.POST.get('date')
 
@@ -57,3 +58,25 @@ def schedule_meeting(request):
             scheduled=False
         )
         return render(request, 'schedule_meeting.html', {'opening_hours': opening_hours, 'tags': Meetings.tag_choice})
+    else:
+        opening_id = request.POST.get('opening_hour')
+        tag = request.POST.get('tag')
+        description = request.POST.get('description')
+        
+        #Todo: Making Validation
+
+
+    meetings = Meetings(
+        date_id=opening_id,
+        mentees=validate_token(request.COOKIES.get('auth_token')),
+        tag=tag,
+        description=description
+    )
+    meetings.save()
+
+    opening_hours = ScheduleAvailability.objects.get(id=opening_id)
+    opening_hours.scheduled = True
+    opening_hours.save()
+
+    messages.add_message(request, constants.SUCCESS, 'Reunião agendade com sucesso')
+    return redirect('choose_day')
